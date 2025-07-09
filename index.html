@@ -1,0 +1,318 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅游景区服务与管理</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+            h1::after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 200px;
+                height: 4px;
+                background: linear-gradient(to right, transparent, #ff6b6b, transparent);
+                border-radius: 2px;
+            }
+
+        .subtitle {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 1200px;
+            margin: 40px auto;
+            width: 100%;
+        }
+
+        .btn {
+            position: relative;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+            .btn:hover {
+                transform: translateY(-10px) scale(1.03);
+                background: rgba(255, 255, 255, 0.25);
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            }
+
+            .btn::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05), rgba(255,255,255,0.1));
+                z-index: 1;
+                transition: all 0.4s ease;
+                opacity: 0.5;
+            }
+
+            .btn:hover::before {
+                opacity: 0.8;
+            }
+
+            .btn i {
+                font-size: 4rem;
+                margin-bottom: 20px;
+                z-index: 2;
+                text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            }
+
+            .btn span {
+                font-size: 1.6rem;
+                font-weight: 600;
+                z-index: 2;
+                text-align: center;
+                text-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+            }
+
+            .btn:nth-child(1) {
+                background: linear-gradient(45deg, rgba(106, 27, 154, 0.7), rgba(49, 27, 146, 0.7));
+            }
+
+            .btn:nth-child(2) {
+                background: linear-gradient(45deg, rgba(33, 150, 243, 0.7), rgba(3, 169, 244, 0.7));
+            }
+
+            .btn:nth-child(3) {
+                background: linear-gradient(45deg, rgba(0, 150, 136, 0.7), rgba(0, 188, 212, 0.7));
+            }
+
+            .btn:nth-child(4) {
+                background: linear-gradient(45deg, rgba(76, 175, 80, 0.7), rgba(139, 195, 74, 0.7));
+            }
+
+            .btn:nth-child(5) {
+                background: linear-gradient(45deg, rgba(255, 152, 0, 0.7), rgba(255, 193, 7, 0.7));
+            }
+
+            .btn:nth-child(6) {
+                background: linear-gradient(45deg, rgba(244, 67, 54, 0.7), rgba(233, 30, 99, 0.7));
+            }
+
+            .btn:nth-child(7) {
+                background: linear-gradient(45deg, rgba(156, 39, 176, 0.7), rgba(103, 58, 183, 0.7));
+            }
+
+            .btn:nth-child(8) {
+                background: linear-gradient(45deg, rgba(63, 81, 181, 0.7), rgba(57, 73, 171, 0.7));
+            }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            padding: 20px;
+            font-size: 1.1rem;
+            opacity: 0.8;
+            width: 100%;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .buttons-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(4, 1fr);
+                max-width: 800px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            .buttons-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+
+            .btn {
+                height: 150px;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+            }
+
+            50% {
+                text-shadow: 0 0 25px rgba(255, 255, 255, 0.9), 0 0 35px rgba(255, 255, 255, 0.6);
+            }
+
+            100% {
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>旅游景区服务与管理</h1>
+    </div>
+
+    <div class="buttons-grid">
+        <a href="page1.html" class="btn">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>电子版图书</span>
+        </a>
+        <a href="page2.html" class="btn">
+            <i class="fas fa-user-circle"></i>
+            <span>编写团队</span>
+        </a>
+        <a href="page3.html" class="btn">
+            <i class="fas fa-envelope"></i>
+            <span>教材简介</span>
+        </a>
+        <a href="page4.html" class="btn">
+            <i class="fas fa-cog"></i>
+            <span>特色、创新与影响</span>
+        </a>
+        <a href="page5.html" class="btn">
+            <i class="fas fa-images"></i>
+            <span>政审材料</span>
+        </a>
+        <a href="page6.html" class="btn">
+            <i class="fas fa-chart-bar"></i>
+            <span>应用证明</span>
+        </a>
+        <a href="page7.html" class="btn">
+            <i class="fas fa-file-alt"></i>
+            <span>申请表</span>
+        </a>
+        <a href="page8.html" class="btn">
+            <i class="fas fa-headset"></i>
+            <span>其他材料</span>
+        </a>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 旅游景区服务与管理</p>
+    </div>
+
+    <script>
+        // 为所有按钮添加点击效果
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function (e) {
+                // 创建涟漪效果
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                this.appendChild(ripple);
+
+                // 获取点击位置
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                // 设置涟漪位置
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+
+                // 移除涟漪效果
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // 添加动态样式
+        const style = document.createElement('style');
+        style.innerHTML = `
+                .ripple {
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.7);
+                    transform: scale(0);
+                    animation: rippleEffect 0.6s linear;
+                    pointer-events: none;
+                }
+
+                @keyframes rippleEffect {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+            `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

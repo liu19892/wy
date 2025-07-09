@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>控制面板 - 网站导航中心</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+            width: 100%;
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            text-decoration: none;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+            .back-btn:hover {
+                background: rgba(255, 255, 255, 0.3);
+                transform: translateY(-50%) scale(1.1);
+            }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+            letter-spacing: 2px;
+        }
+
+        .content {
+            max-width: 1000px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+            .content h2 {
+                font-size: 2.2rem;
+                margin-bottom: 25px;
+                color: #ffd700;
+                text-align: center;
+            }
+
+            .content p {
+                font-size: 1.2rem;
+                line-height: 1.8;
+                margin-bottom: 20px;
+            }
+            .content h3 {
+                font-size: 1.2rem;
+                margin-bottom: 25px;
+                color: #ffd700;
+                text-align: left;
+            }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+            .feature-card:hover {
+                transform: translateY(-8px);
+                background: rgba(255, 255, 255, 0.2);
+            }
+
+            .feature-card i {
+                font-size: 2.5rem;
+                margin-bottom: 15px;
+                color: #64ffda;
+            }
+
+            .feature-card h3 {
+                font-size: 1.5rem;
+                margin-bottom: 15px;
+            }
+
+            .feature-card p {
+                font-size: 1rem;
+            }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            padding: 20px;
+            font-size: 1.1rem;
+            opacity: 0.8;
+            width: 100%;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .back-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+                left: 10px;
+            }
+
+            .content {
+                padding: 25px 20px;
+            }
+
+                .content h2 {
+                    font-size: 1.8rem;
+                }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1>旅游景区服务与管理</h1>
+    </div>
+
+    <div class="content">
+        <h2>教材简介</h2>
+        <p>《旅游景区服务与管理》是由东北师范大学出版社出版的高职高专层次旅游类专业核心 课程教材。该教材初版于 2008 年，因使用效果良好，于 2014 年出版第二版，并于 2019 年 进行修订，至今已印刷 5.5 万册，发行近 5 万册，连续入选“十二五 ”“十三五 ”“十四 五 ”职业教育国家规划教材，在旅游教育领域获得广泛认可。</p>
+        <p>在编写过程中，教材注重研究性与实践性的结合，编写团队由具有理论研究功底和实践 经验的“双师型 ”教师组成。教材以“产教融合、工学结合 ”为导向，系统阐述了旅游景 区服务与管理的理论框架与实践技能，内容划分为认知篇、服务篇与管理篇三大板块，共 九个章节，涵盖景区入门接待、服务流程设计、营销管理、人力资源管理、安全管理及可 持续发展等核心模块，全面覆盖旅游景区服务与管理的主要技能。</p>
+        <p>教材在每章中设置实训任务、案例分析及习题，注重培养学生的职业素养和实操能力。 教材案例丰富，融入行业最新动态，并配套数字化教学资源，适应现代职业教育需求。作 为国家级规划教材，本书广泛应用于高职院校旅游管理等相关专业的课程教学，也适合行 业从业人员培训，为培养高素质技术技能型旅游人才提供了有力支撑，是我国旅游职业教 育领域的重要教材之一。</p>
+        <p></p>
+
+        <h2>设计思路与内容编排</h2>
+        <h3>设计思路</h3>
+        <p>《旅游景区服务与管理》由东北师范大学出版社出版，是高等职业教育旅游类专业的核 心课程教材。其设计遵循“理论奠基、实践导向、能力递进 ”的理念，以培养高素质技术 技能型人才为目标，强调“教、学、做 ”一体化。教材采用模块化设计，将内容划分为认 知篇、服务篇与管理篇三大板块，并进一步细化为九大章节，逻辑清晰，层层递进，既符 合职业院校学生的认知规律，又契合旅游景区运营管理的实际工作流程。 </p>
+
+        <h3>内容编排与体系结构</h3>
+        <p>教材采用“认知—服务—管理”的递进式结构，涵盖旅游景区运营管理的全流程，具体内容如下：  </p>
+        <p>（一）认知篇：夯实基础，构建行业认知 </p>
+        <p>本部分旨在帮助学生建立对旅游景区的基本认知，使学生掌握景区管理的基本框架， 内容涵盖：</p>
+        <p>1.旅游景区的定义与分类：介绍不同类型景区的特点。</p>
+        <p>2.旅游景区的发展历程：梳理国内外景区管理模式演变，分析未来趋势。</p>
+        <p>（二）服务篇：聚焦实操，提升服务技能  </p>
+        <p>服务是景区的核心竞争力，本部分围绕游客体验的核心环节展开，包括：</p>
+        <p>1. 景区入门接待服务与管理：票务系统、排队管理、游客分流等。  </p>
+        <p>2. 景区解说服务与管理：导游讲解、智慧导览、标识系统设计等。</p>
+        <p>3. 综合配套服务与管理：餐饮、住宿、交通、购物等配套服务优化。</p>
+        <p>4. 景区营销与管理：市场定位、新媒体营销、节事活动策划等。</p>
+        <p>5. 景区服务质量管理：游客满意度调查、投诉处理、服务标准化建设。</p>
+        <p>（三）管理篇：系统思维，强化管理能力</p>
+        <p>本部分设计主要是培养学生从宏观角度分析景区运营问题的能力，使其具备管理思维和 决策能力，适应未来职业发展需求。本部分从管理者的视角出发，涵盖：</p>
+        <p>1. 人力资源管理：员工培训、绩效考核、团队建设等。</p>
+        <p>2. 安全管理：应急预案、风险评估、突发事件处理（如自然灾害、公共卫生事件）。</p>
+        <p>3. 资源与环境管理：生态保护、可持续发展、低碳景区建设等。</p>
+        <p></p>
+        <p></p>
+        <p></p>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 旅游景区服务与管理</p>
+    </div>
+</body>
+</html>

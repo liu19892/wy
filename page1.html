@@ -1,0 +1,490 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教材PDF下载页面</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+
+        /* 头部样式 */
+        .header {
+            background: var(--primary);
+            color: white;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+            .back-btn:hover {
+                background: var(--secondary);
+                transform: translateX(-5px);
+            }
+
+        .header-content {
+            text-align: center;
+            flex: 1;
+            padding: 0 20px;
+        }
+
+            .header-content h1 {
+                font-size: 2.4rem;
+                margin-bottom: 10px;
+                letter-spacing: 1px;
+            }
+
+            .header-content p {
+                font-size: 1.1rem;
+                opacity: 0.9;
+            }
+
+        .actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+            .action-btn:hover {
+                background: var(--secondary);
+                transform: translateY(-3px);
+            }
+
+        /* 封面展示区 */
+        .cover-container {
+            padding: 40px;
+            background: var(--light);
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cover-preview {
+            max-width: 100%;
+            max-height: 70vh;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+            .cover-preview img {
+                max-width: 100%;
+                max-height: 65vh;
+                display: block;
+                object-fit: contain;
+            }
+
+        .pdf-indicator {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cover-placeholder {
+            width: 100%;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-size: 1.1rem;
+        }
+
+            .cover-placeholder i {
+                font-size: 3rem;
+                margin-bottom: 15px;
+                color: #ced4da;
+            }
+
+        /* 文件信息区域 */
+        .file-info {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .info-card {
+            flex: 1;
+            min-width: 250px;
+            padding: 20px;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+
+            .info-card h3 {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+                color: var(--primary);
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+                .info-card h3 i {
+                    color: var(--secondary);
+                }
+
+        .info-content {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: var(--success);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+            .download-btn:hover {
+                background: #218838;
+                transform: translateY(-3px);
+                box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4);
+            }
+
+        /* 全屏样式 */
+        .fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            background: white;
+            padding: 20px;
+        }
+
+            .fullscreen .header {
+                border-radius: 0;
+            }
+
+            .fullscreen .cover-container {
+                min-height: 85vh;
+            }
+
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .header-content {
+                padding: 0;
+            }
+
+            .actions {
+                margin-top: 10px;
+            }
+
+            .file-info {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .cover-container {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-content h1 {
+                font-size: 1.5rem;
+            }
+
+            .header-content p {
+                font-size: 0.9rem;
+            }
+
+            .cover-preview {
+                width: 100%;
+            }
+
+            .pdf-indicator {
+                font-size: 0.8rem;
+                padding: 5px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+
+            <div class="header-content">
+                <h1>旅游景区服务与管理</h1>
+                <p>“十四五”职业教育国家规定教材</p>
+            </div>
+
+            <div class="actions">
+                <button class="action-btn" id="fullscreen-btn" title="全屏模式">
+                    <i class="fas fa-expand"></i>
+                </button>
+                <button class="action-btn" id="download-btn" title="下载PDF">
+                    <i class="fas fa-download"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="cover-container">
+            <div class="cover-preview">
+                <!-- 封面图片展示 -->
+                <img src="fengmian.jpg" alt="旅游景区服务与管理教材封面" id="book-cover">
+                <!-- PDF文件指示器 -->
+                <div class="pdf-indicator">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>PDF文件预览</span>
+                </div>
+                <!-- 备用占位符 -->
+                <div class="cover-placeholder" id="cover-placeholder" style="display: none;">
+                    <i class="fas fa-book"></i>
+                    <p>教材封面图片</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="file-info">
+            <div class="info-card">
+                <h3><i class="fas fa-file-pdf"></i> PDF文档信息</h3>
+                <div class="info-content">
+                    <p><strong>文档名称：</strong> 旅游景区服务与管理（第2版）.pdf</p>
+                    <p><strong>文件大小：</strong> 113.0 MB</p>
+                    <p><strong>页数：</strong> 200 页</p>
+                    <p><strong>出版日期：</strong> 2019-12</p>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-info-circle"></i> 教材说明</h3>
+                <div class="info-content">
+                    <p>为响应党的二十大报告中关于推动高质量发展，构建优质高效的服务业新体系的要求，适应游客日益多样化的需求，培养具有服务技能和管理知识的景区服务与管理初、中级人才，助力人才强国战略，本教材进行了修订和更新。</p>
+                    <p>本教材面向应用型中高等院校的学生，在坚实理论的基础上，遵循思想性、系统性、实践性、应用性的原则，注重行业案例和相关资料的融入，通过对行业信息的解读使读者在掌握理论知识的同时了解旅游景区行业的最新发展，有助于学校开展产教融合以及开展实习实践。</p>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-download"></i> 下载PDF文档</h3>
+                <div class="info-content">
+                    <p>点击下方按钮下载完整PDF文档</p>
+                    <div style="margin-top: 20px;">
+                        <button class="download-btn" id="download-btn-main">
+                            <i class="fas fa-download"></i> 下载PDF教材
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 初始化变量
+        let isFullscreen = false;
+
+        // 获取DOM元素
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const downloadBtnMain = document.getElementById('download-btn-main');
+        const bookCover = document.getElementById('book-cover');
+        const coverPlaceholder = document.getElementById('cover-placeholder');
+        const container = document.querySelector('.container');
+
+        // 检查图片是否加载成功
+        bookCover.onerror = function () {
+            bookCover.style.display = 'none';
+            coverPlaceholder.style.display = 'flex';
+        };
+
+        // 全屏切换
+        function toggleFullscreen() {
+            if (!isFullscreen) {
+                container.classList.add('fullscreen');
+                isFullscreen = true;
+                fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+                fullscreenBtn.title = '退出全屏';
+            } else {
+                container.classList.remove('fullscreen');
+                isFullscreen = false;
+                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                fullscreenBtn.title = '全屏模式';
+            }
+        }
+
+        // 下载PDF文件
+        function downloadPDF() {
+            // 创建下载链接
+            const link = document.createElement('a');
+            link.href = 'zhengwen.pdf'; // 本地PDF文件路径
+            link.download = '旅游景区服务与管理（第2版）.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // 显示下载提示
+            const downloadToast = document.createElement('div');
+            downloadToast.style.position = 'fixed';
+            downloadToast.style.bottom = '20px';
+            downloadToast.style.right = '20px';
+            downloadToast.style.backgroundColor = '#28a745';
+            downloadToast.style.color = 'white';
+            downloadToast.style.padding = '15px 25px';
+            downloadToast.style.borderRadius = '8px';
+            downloadToast.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+            downloadToast.style.zIndex = '10000';
+            downloadToast.style.display = 'flex';
+            downloadToast.style.alignItems = 'center';
+            downloadToast.style.gap = '10px';
+            downloadToast.innerHTML = `
+                        <i class="fas fa-file-download"></i>
+                        <span>PDF文档下载中...</span>
+                    `;
+
+            document.body.appendChild(downloadToast);
+
+            // 3秒后移除提示
+            setTimeout(() => {
+                downloadToast.style.opacity = '0';
+                downloadToast.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    document.body.removeChild(downloadToast);
+                }, 500);
+            }, 3000);
+        }
+
+        // 事件监听器
+        fullscreenBtn.addEventListener('click', toggleFullscreen);
+        downloadBtn.addEventListener('click', downloadPDF);
+        downloadBtnMain.addEventListener('click', downloadPDF);
+
+        // 键盘快捷键
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && isFullscreen) {
+                toggleFullscreen();
+            } else if (event.key === 'd' || event.key === 'D') {
+                downloadPDF();
+            }
+        });
+    </script>
+</body>
+</html>

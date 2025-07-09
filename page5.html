@@ -1,0 +1,583 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>团队成员材料 | 学术期刊</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Serif SC', 'Segoe UI', serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: #343a40;
+            line-height: 1.7;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 20px 120px;
+        }
+
+        /* 返回主页按钮 - 桌面端 */
+        .back-to-home {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: #2c3e50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            z-index: 100;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+            .back-to-home:hover {
+                background: #3498db;
+                transform: translateY(-3px) scale(1.05);
+                box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4);
+            }
+
+        /* 导航栏 - 移动端 */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: none;
+            z-index: 100;
+            box-shadow: 0 -3px 15px rgba(0, 0, 0, 0.1);
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            padding: 12px 0;
+        }
+
+        .mobile-nav-content {
+            display: flex;
+            justify-content: space-around;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #4a5568;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            padding: 5px 15px;
+            border-radius: 15px;
+        }
+
+            .nav-item:hover, .nav-item.active {
+                color: #2c3e50;
+                background: #f0f4f8;
+            }
+
+            .nav-item i {
+                font-size: 1.4rem;
+                margin-bottom: 5px;
+            }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
+            border-radius: 18px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+            header::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 5px;
+                background: linear-gradient(to right, #3498db, #e74c3c);
+            }
+
+        .journal-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #e8f4fc;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: white;
+        }
+
+        .page-description {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 300;
+            color: #cbd5e0;
+        }
+
+        .material-section {
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            padding: 35px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+            transition: transform 0.3s ease;
+        }
+
+            .material-section:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            }
+
+        .material-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f1f3f5;
+        }
+
+        .member-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #f8f9fa;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-right: 25px;
+        }
+
+        .member-info {
+            flex: 1;
+        }
+
+        .member-name {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .member-position {
+            font-size: 1.1rem;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .material-title {
+            font-size: 1.5rem;
+            color: #3498db;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #3498db;
+        }
+
+        .material-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #495057;
+            margin-bottom: 20px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .material-photo {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            display: block;
+        }
+
+            .material-photo:hover {
+                transform: scale(1.02);
+            }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 15px;
+        }
+
+        .photo-caption {
+            text-align: center;
+            font-size: 1rem;
+            color: #6c757d;
+            margin-top: -15px;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #718096;
+            font-size: 1.1rem;
+            margin-top: 30px;
+            background: #2c3e50;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            color: #cbd5e0;
+        }
+
+        .footer-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        .copyright {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #4a5568;
+            font-size: 0.95rem;
+            color: #a0aec0;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .container {
+                padding: 70px 20px 100px;
+            }
+
+            h1 {
+                font-size: 2.4rem;
+            }
+
+            .material-section {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .material-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .member-avatar {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+
+            .back-to-home {
+                top: 20px;
+                left: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 60px 15px 120px;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .material-section {
+                padding: 25px 20px;
+            }
+
+            .back-to-home {
+                display: none;
+            }
+
+            .mobile-nav {
+                display: block;
+            }
+
+            .photo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 返回主页按钮（桌面端） -->
+    <a href="index.html" class="back-to-home">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <!-- 移动端导航栏 -->
+    <nav class="mobile-nav">
+        <div class="mobile-nav-content">
+            <a href="index.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>主页</span>
+            </a>
+            <a href="team.html" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>团队</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <i class="fas fa-images"></i>
+                <span>材料</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-envelope"></i>
+                <span>联系</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+
+            <h1>编写人员政治审查材料</h1>
+
+        </header>
+
+        <!-- 成员A的材料部分 -->
+        <section class="material-section">
+            <div class="material-header">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="周丽君副教授" class="member-avatar">
+                <div class="member-info">
+                    <h2 class="member-name">周丽君 副教授</h2>
+                    <p class="member-position">主编 | 旅游管理</p>
+                </div>
+            </div>
+
+            <h3 class="material-title">政治审查材料</h3>
+
+            <div class="photo-grid">
+                <div>
+                    <img src="zs01.jpg" alt="会议报告现场" class="material-photo">
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 成员B的材料部分 -->
+        <section class="material-section">
+            <div class="material-header">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=776&q=80" alt="李思雨教授" class="member-avatar">
+                <div class="member-info">
+                    <h2 class="member-name">蔡维英 教授</h2>
+                    <p class="member-position">副主编 | 旅游管理</p>
+                </div>
+            </div>
+
+            <h3 class="material-title">政治审查材料</h3>
+
+            <div class="photo-grid">
+                <div>
+                    <img src="zs02.jpg" alt="数据可视化" class="material-photo">
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 成员C的材料部分 -->
+        <section class="material-section">
+            <div class="material-header">
+                <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=798&q=80" alt="王建国教授" class="member-avatar">
+                <div class="member-info">
+                    <h2 class="member-name">陈帅 副教授</h2>
+                    <p class="member-position">副主编 | 旅游管理</p>
+                </div>
+            </div>
+
+            <h3 class="material-title">政治审查材料</h3>
+            <div class="photo-grid">
+                <div>
+                    <img src="zs03.jpg" alt="专利证书" class="material-photo">
+
+                </div>
+
+        </section>
+
+        <!-- 成员4的材料部分 -->
+        <section class="material-section">
+            <div class="material-header">
+                <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=798&q=80" alt="王建国教授" class="member-avatar">
+                <div class="member-info">
+                    <h2 class="member-name">金花 副教授</h2>
+                    <p class="member-position">副主编 | 旅游管理</p>
+                </div>
+            </div>
+
+            <h3 class="material-title">政治审查材料</h3>
+            <div class="photo-grid">
+                <div>
+                    <img src="zs04.jpg" alt="专利证书" class="material-photo">
+
+                </div>
+
+        </section>
+
+
+
+        <!-- 成员5的材料部分 -->
+        <section class="material-section">
+            <div class="material-header">
+                <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=798&q=80" alt="王建国教授" class="member-avatar">
+                <div class="member-info">
+                    <h2 class="member-name">马影 副教授</h2>
+                    <p class="member-position">副主编 | 旅游英语</p>
+                </div>
+            </div>
+
+            <h3 class="material-title">政治审查材料</h3>
+            <div class="photo-grid">
+                <div>
+                    <img src="zs05.jpg" alt="专利证书" class="material-photo">
+
+                </div>
+
+        </section>
+
+
+        <header>
+
+            <h1>教材编辑人员政治审查材料</h1>
+
+        </header>
+
+        <!-- 成员6的材料部分 -->
+        <section class="material-section">
+            <div class="material-header">
+                <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=798&q=80" alt="王建国教授" class="member-avatar">
+                <div class="member-info">
+                    <h2 class="member-name">王红娟</h2>
+
+                </div>
+            </div>
+
+            <h3 class="material-title">政治审查材料</h3>
+            <div class="photo-grid">
+                <div>
+                    <img src="zs06.jpg" alt="专利证书" class="material-photo">
+
+                </div>
+
+        </section>
+
+
+
+        <!-- 成员7的材料部分 -->
+        <section class="material-section">
+            <div class="material-header">
+                <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=798&q=80" alt="王建国教授" class="member-avatar">
+                <div class="member-info">
+                    <h2 class="member-name">孟宪威</h2>
+
+                </div>
+            </div>
+
+            <h3 class="material-title">政治审查材料</h3>
+            <div class="photo-grid">
+                <div>
+                    <img src="zs07.jpg" alt="专利证书" class="material-photo">
+
+                </div>
+
+        </section>
+
+
+
+        <!-- 成员8的材料部分 -->
+        <section class="material-section">
+            <div class="material-header">
+                <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=798&q=80" alt="王建国教授" class="member-avatar">
+                <div class="member-info">
+                    <h2 class="member-name">毕东微</h2>
+
+                </div>
+            </div>
+
+            <h3 class="material-title">政治审查材料</h3>
+            <div class="photo-grid">
+                <div>
+                    <img src="zs08.jpg" alt="专利证书" class="material-photo">
+
+                </div>
+
+        </section>
+
+
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo">旅游景区服务与管理</div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // 添加简单的动画效果
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('.material-section');
+
+            sections.forEach((section, index) => {
+                // 初始设置透明度为0，稍后动画显示
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+
+                // 设置延迟动画
+                setTimeout(() => {
+                    section.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, 300 + index * 200);
+            });
+
+            // 移动端导航激活状态
+            const currentPage = window.location.pathname.split('/').pop();
+            const navItems = document.querySelectorAll('.nav-item');
+
+            navItems.forEach(item => {
+                if (item.getAttribute('href') === currentPage) {
+                    item.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
